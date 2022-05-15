@@ -11,6 +11,7 @@ import Input from "components/atom/Input";
 import DatePicker from "components/atom/DatePicker";
 import Select from "components/atom/Select";
 import Stack from "@mui/material/Stack";
+import MenuItem from "@mui/material/MenuItem";
 
 function FormBase({ children = [], action = "", method = "" }) {
   return (
@@ -39,7 +40,19 @@ export const EvenStack = styled(Stack)`
   }
 `;
 
-export function FormSearch({ children = [], action = "", method = "" }) {
+export function FormSearch({
+  children = [],
+  action = "",
+  method = "",
+  adultos = [],
+  select2Hook,
+}) {
+  console.log(select2Hook);
+
+  const listNinos = select2Hook();
+
+  console.log(listNinos);
+  console.log(listNinos != null);
   return (
     <FormBase>
       <Input description="Ubicación" helper="Cerca de Aqui"></Input>
@@ -56,8 +69,20 @@ export function FormSearch({ children = [], action = "", method = "" }) {
         justifyContent="space-around"
         alignItems="flex-start"
       >
-        <Select description="Adultos"></Select>
-        <Select description="Niños"></Select>
+        <Select description="Adultos">{adultos}</Select>
+        <Select description="Niños">
+          {listNinos != null ? (
+            listNinos.map((nino) => (
+              <MenuItem value={nino.id} key={nino.id}>
+                {nino.nombre}
+              </MenuItem>
+            ))
+          ) : (
+            <MenuItem value={0} key={0}>
+              Sin roles
+            </MenuItem>
+          )}
+        </Select>
       </EvenStack>
       {children}
     </FormBase>

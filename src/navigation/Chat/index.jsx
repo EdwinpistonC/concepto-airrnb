@@ -15,6 +15,10 @@ import UserListSection from "components/organism/UserListSection";
 
 import { firebaseConfig } from "server/Firebase";
 
+//React Components
+import Header from "components/organism/Header";
+import Footer from "components/organism/Footer";
+
 firebase.initializeApp(firebaseConfig);
 const uid = 10,
   photoURL = "https://api.adorable.io/avatars/23/abott@adorable.png";
@@ -33,6 +37,7 @@ const Chat = styled.div`
     margin-bottom: 10%;
   }
 `;
+const id = 20;
 
 const Room = styled.div`
   flex-grow: 1;
@@ -54,10 +59,22 @@ const Message = styled.div`
 
 function ChatRoom() {
   const dummy = useRef();
-  const messagesRef = firestore.collection("messages");
+  const messagesRef = firestore.collection("messages-" + id);
   const query = messagesRef.orderBy("createdAt").limit(25);
 
   const [messages] = useCollectionData(query, { idField: "id" });
+
+  const collChats = [];
+  messages.map(
+    (msg) =>
+      function () {
+        if (msg.id > id) {
+          collChats.add(firestore.collection("chat-" + id + "-" + msg.id));
+        } else {
+          collChats.add(firestore.collection("chat-" + msg.id + "-" + id));
+        }
+      }
+  );
 
   const [formValue, setFormValue] = useState("");
 
@@ -78,34 +95,37 @@ function ChatRoom() {
   };
 
   return (
-    <Room>
-      <main>
-        {messages &&
-          messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
+    <>
+      {" "}
+      <Header></Header>
+      <Room>
+        <main>
+          <span ref={dummy}>
+            {messages &&
+              messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
+          </span>
+        </main>
 
-        <span ref={dummy}></span>
-      </main>
+        <form onSubmit={sendMessage}>
+          <input
+            value={formValue}
+            onChange={(e) => setFormValue(e.target.value)}
+            placeholder="Mandar mensaje"
+          />
 
-      <form onSubmit={sendMessage}>
-        <input
-          value={formValue}
-          onChange={(e) => setFormValue(e.target.value)}
-          placeholder="Mandar mensaje"
-        />
-
-        <button type="submit" disabled={!formValue}>
-          🕊️
-        </button>
-      </form>
-    </Room>
+          <button type="submit" disabled={!formValue}>
+            🕊️
+          </button>
+        </form>
+      </Room>
+      <Footer></Footer>
+    </>
   );
 }
 
 function ChatMessage(props) {
   const { text, uid, photoURL } = props.message;
-
   const messageClass = uid ? "sent" : "received";
-
   return (
     <>
       <Message>

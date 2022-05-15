@@ -1,10 +1,8 @@
-import Button, { SearchButton } from "components/atom/Button";
+import Message from "components/atom/Message";
 
 export default {
-  title: "Atoms/Button",
-  component: Button,
+  title: "Atoms/Message",
+  component: Message,
 };
 
-export const Normal = () => <Button></Button>;
-
-export const Search = () => <SearchButton></SearchButton>;
+export const MessageUI = () => <Message></Message>;

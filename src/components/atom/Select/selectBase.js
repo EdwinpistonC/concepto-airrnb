@@ -21,7 +21,7 @@ export const SelectBase = styled(TextField)`
   color: ${(props) => props.theme.color.default};
 `;
 */
-export function SelectBase({ description, options }) {
+export function SelectBase({ description, children }) {
   const [age, setAge] = React.useState("");
 
   const handleChange = (event) => {
@@ -39,13 +39,7 @@ export function SelectBase({ description, options }) {
           label={description}
           onChange={handleChange}
         >
-          {options.filter(Boolean).map((opt, index) => {
-            return (
-              <MenuItem value={opt} key={index}>
-                {opt}
-              </MenuItem>
-            );
-          })}
+          {children}
         </Select>
       </FormControl>
     </Box>
@@ -55,7 +49,6 @@ export function SelectBase({ description, options }) {
 export const selectProps = {
   theme: PropTypes.object,
   description: PropTypes.string,
-  options: PropTypes.array,
 };
 
 export const selectDefaults = {
@@ -64,5 +57,4 @@ export const selectDefaults = {
     color: myTheme.color,
   },
   description: myTheme.defaultText.text,
-  options: myTheme.defaultText.listText,
 };

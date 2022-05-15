@@ -1,36 +1,36 @@
-import { ButtonBase, buttonDefaults, buttonProps } from "./buttonBase";
+import { MessageBase, MessageDefaults, MessageProps } from "./messageBase";
 
 //material component
 import SearchIcon from "@mui/icons-material/Search";
 
-const Button = ({ theme, name, customcolor }) => {
+const Message = ({ theme, name, customcolor }) => {
   return (
-    <ButtonBase customcolor={customcolor} theme={theme} variant="contained">
+    <MessageBase customcolor={customcolor} theme={theme} variant="contained">
       <h1>{name}</h1>
-    </ButtonBase>
+    </MessageBase>
   );
 };
 
-Button.propTypes = buttonProps;
+Message.propTypes = MessageProps;
 
-Button.defaultProps = buttonDefaults;
+Message.defaultProps = MessageDefaults;
 
-export default Button;
+export default Message;
 
-const SearchButton = ({ theme, name, customcolor }) => {
+const SearchMessage = ({ theme, name, customcolor }) => {
   return (
-    <ButtonBase
+    <MessageBase
       theme={theme}
       customcolor={customcolor}
       variant="contained"
       startIcon={<SearchIcon />}
     >
       {name}
-    </ButtonBase>
+    </MessageBase>
   );
 };
-SearchButton.propTypes = buttonProps;
+SearchMessage.propTypes = MessageProps;
 
-SearchButton.defaultProps = buttonDefaults;
+SearchMessage.defaultProps = MessageDefaults;
 
-export { SearchButton };
+export { SearchMessage };

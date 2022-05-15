@@ -3,10 +3,22 @@ import styled from "styled-components";
 
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
+//React Components
+import Header from "components/organism/Header";
+import Footer from "components/organism/Footer";
+const onApprove = () => {
+  alert("pago realizado");
+};
+
 export default function Pago() {
   return (
-    <PayPalScriptProvider options={{ "client-id": "test" }}>
-      <PayPalButtons style={{ layout: "horizontal" }} />
-    </PayPalScriptProvider>
+    <>
+      <Header></Header>
+
+      <PayPalScriptProvider options={{ "client-id": "test" }}>
+        <PayPalButtons style={{ layout: "horizontal" }} onApprove={onApprove} />
+      </PayPalScriptProvider>
+      <Footer></Footer>
+    </>
   );
 }

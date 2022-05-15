@@ -12,6 +12,9 @@ import { myTheme } from "components/template";
 import { SearchButton } from "components/atom/Button";
 import ImgBackground from "components/atom/ImgBackground";
 
+//Hooks
+import useRol from "hooks/useRol";
+
 const PageSection = styled.div`
   margin: ${(props) => props.theme.pageSections.margins};
 `;
@@ -28,6 +31,9 @@ const BackgroundPosition = styled.div`
 `;
 
 function SearchSection({ theme }) {
+  //const listRol = useRol();
+  //console.log(listRol);
+
   return (
     <PageSection theme={theme}>
       <FormPosition>
@@ -44,7 +50,7 @@ function SearchSection({ theme }) {
             Desde hoteles con excelentes evaluaciones hasta espacios
             vacacionales y todo tipo de alojamientos.
           </Typography>
-          <FormSearch>
+          <FormSearch select2Hook={useRol}>
             <ButtonPosition textAlign="center">
               <SearchButton sx={{ p: 2 }}></SearchButton>
             </ButtonPosition>

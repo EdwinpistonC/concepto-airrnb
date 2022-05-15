@@ -1,13 +1,10 @@
 import { SelectBase, selectDefaults, selectProps } from "./selectBase";
 
-const Select = ({ theme, description, options }) => {
+const Select = ({ theme, description, children }) => {
   return (
-    <SelectBase
-      theme={theme}
-      description={description}
-      options={options}
-      variant="filled"
-    />
+    <SelectBase theme={theme} description={description} variant="filled">
+      {children}
+    </SelectBase>
   );
 };
 
